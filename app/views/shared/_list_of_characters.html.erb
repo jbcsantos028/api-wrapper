@@ -1,0 +1,14 @@
+<% characters["data"]["results"].each do |character| %>
+  <div class="col-4 mt-4">
+    <div class="card text-center shadow mb-5 bg-white rounded">
+      <div class="card-body">
+        <div id="image-content"><%= image_tag("#{character["thumbnail"]["path"] + "." + character["thumbnail"]["extension"]}", height: 150, width: 150) %></div>
+        <p class="card-text"><%= character["name"] %></p>
+        <%= link_to "Show Details", character_path(character["id"]), class: "btn btn-danger" %>
+      </div>
+      <div class="card-footer text-muted">
+        <small><%= character["description"].empty? ? "No available description for this character" : simple_format(truncate(character["description"], length: 80)) %></small>
+      </div>
+    </div>
+  </div>
+<% end %>
