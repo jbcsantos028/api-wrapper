@@ -1,21 +1,21 @@
 class MarvelApi::V1::Client
   class MarvelApiError < StandardError; end
   class CharacterNotFound < MarvelApiError; end
-
+  
   BASE_URL = 'https://gateway.marvel.com:443'.freeze
   TS = '1'
-  API_KEY = Rails.application.credentials.marvel_client[:api_key] # put this in credentials.yml
-  HASH =  Rails.application.credentials.marvel_client[:hash]# put this in credentials.yml
+  API_KEY = Rails.application.credentials.marvel_client[:api_key]
+  HASH =  Rails.application.credentials.marvel_client[:hash]
 
   ERROR_CODES = {
     404 => CharacterNotFound
   }.freeze
 
-  def characters(orderBy='name', limit=10)
+  def characters(orderBy='name', limit=20, offset=rand(1542))
     request(
       method: "get", 
       endpoint: "v1/public/characters", 
-      params: { orderBy: orderBy, limit: limit }
+      params: { orderBy: orderBy, limit: limit, offset: offset }
     )
   end
 
@@ -25,6 +25,36 @@ class MarvelApi::V1::Client
       endpoint: "v1/public/characters/#{id}"
     )
   end
+
+  def comics(issue_format='comic', orderBy='title', limit=20, offset=rand(43824))
+    request(
+      method: "get", 
+      endpoint: "v1/public/comics", 
+      params: { format: issue_format, orderBy: orderBy, limit: limit, offset: offset }
+    )
+  end
+
+  def comic(id)
+    request(
+      method: "get", 
+      endpoint: "v1/public/comics/#{id}"
+    )
+  end
+
+  def comics_of_a_character(id)
+    request(
+      method: "get", 
+      endpoint: "v1/public/characters/#{id}/comics"
+    )
+  end
+
+  def characters_in_a_comic(id)
+    request(
+      method: "get", 
+      endpoint: "v1/public/comics/#{id}/characters"
+    )
+  end
+
 
   private
 

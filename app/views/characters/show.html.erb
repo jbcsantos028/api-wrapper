@@ -1,1 +1,44 @@
-<h1><%= @character["data"]["results"][0]["name"] %></h1>
+<div class="container mt-4 mb-4">
+  <div class="row justify-content-md-center">
+    <div class="col-8 mt-4">
+      <div class="card text-center shadow mb-5 bg-white rounded">
+        <div class="card-header font-italic">
+          <h2 class="text-center"><%= @character["data"]["results"][0]["name"] %></h2>
+        </div>
+        <div class="card-body">
+          <div class="card-text"><%= image_tag("#{@character["data"]["results"][0]["thumbnail"]["path"] + "." + @character["data"]["results"][0]["thumbnail"]["extension"]}", height: 400, width: 400) %></div>
+        </div>
+        <div class="card-footer text-muted">
+          <small><%= @character["data"]["results"][0]["description"].empty? ? "No available description for this character" : simple_format(@character["data"]["results"][0]["description"]) %></small>
+        </div>
+        </div>
+      </div>
+  </div>
+</div>
+<h1 class="text-center mt-4">Comics featuring <%= @character["data"]["results"][0]["name"] %></h1>
+<div class="container">
+  <div class="card-deck">
+    <% if @comics %>
+      <% @comics["data"]["results"].each do |comic| %>
+          <div class="col-4 mt-4">
+            <div class="card text-center shadow mb-5 bg-white rounded">
+              <div class="card-body">
+                <div id="image-content"><%= image_tag("#{comic["thumbnail"]["path"] + "." + comic["thumbnail"]["extension"]}", height: 150, width: 150) %></div>
+                <p class="card-text"><%= comic["title"] %></p>
+                <%= link_to "Show Details", comic_path(comic["id"]), class: "btn btn-danger" %>
+              </div>
+              <div class="card-footer text-muted">
+                <% if !comic["description"].nil? %>
+                  <small><%= comic["description"].empty?? "No available description for this character" : simple_format(truncate(comic["description"], length: 80)) %></small>
+                <% else %>
+                  <small><%= "No available description for this character" %></small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+

@@ -1,0 +1,41 @@
+@import 'bootstrap/dist/css/bootstrap';
+
+#logo {
+  font-size: 2em;
+  color: #fff;
+  letter-spacing: -1px;
+  font-weight: bold;
+  margin-right: 15px;
+  background-color: red;
+  padding-top: 0.5px;
+  padding-bottom: 0.5px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.nav-link {
+  font-size: 1em;
+  color: white !important;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #edf0f1;
+}
+
+#page-content {
+  flex: 1 0 auto;
+}
+
+#image-content {
+  margin-bottom: 8px;
+}
+
+.jumbotron {
+  background-image: asset-url('marvel.jpeg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}

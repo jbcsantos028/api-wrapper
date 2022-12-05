@@ -9,6 +9,7 @@ rescue_from "MarvelApi::V1::Client::CharacterNotFound", with: :character_not_fou
   def show
     client = MarvelApi::V1::Client.new
     @character = client.character(params[:id])
+    @comics = client.comics_of_a_character(params[:id])
   end
 
   private
@@ -16,4 +17,5 @@ rescue_from "MarvelApi::V1::Client::CharacterNotFound", with: :character_not_fou
   def character_not_found
     render plain: 'character not found'
   end
+
 end
